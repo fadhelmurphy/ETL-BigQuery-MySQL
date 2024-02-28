@@ -8,9 +8,9 @@ from airflow.operators.python import PythonOperator
 from dotenv import load_dotenv
 from google.cloud import bigquery
 from google.oauth2 import service_account
-from services.youtube_etl.extract import s_extract_yt
-from services.youtube_etl.load_gbq import s_load_gbq
-from services.youtube_etl.transform import s_transform_yt
+from services.youtube_etl.YTSevices import s_extract_yt
+from services.youtube_etl.YTSevices import s_load_gbq
+from services.youtube_etl.YTSevices import s_transform_yt
 
 load_dotenv('dags/.env')
 
