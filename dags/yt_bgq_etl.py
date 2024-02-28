@@ -3,14 +3,14 @@ from __future__ import annotations
 import os
 from datetime import datetime
 
-import pandas as pd
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from dotenv import load_dotenv
 from google.cloud import bigquery
 from google.oauth2 import service_account
-from googleapiclient.discovery import build
-from utils import preprocess_text
+from services.youtube_etl.extract import s_extract_yt
+from services.youtube_etl.load_gbq import s_load_gbq
+from services.youtube_etl.transform import s_transform_yt
 
 load_dotenv('dags/.env')
 
@@ -45,56 +45,14 @@ dag = DAG(
 
 
 def extract_yt():
-    youtube = build(
-        'youtube', 'v3',
-        credentials=credentials,
-    )
-
-    # Make API request for videos
-    request = youtube.videos().list(
-        part='snippet,contentDetails,statistics',
-        chart='mostPopular',
-        regionCode='id',
-        maxResults=10,
-    )
-    response = request.execute()
-
-    return response
+    return s_extract_yt(credentials=credentials)
 
 
 def transform_yt(**kwargs):
     # Perform any necessary data transformations
     ti = kwargs['ti']
     response = ti.xcom_pull(task_ids='extract_task')
-    # Mengekstrak data
-    items = response.get('items', [])
-
-    data_list = []
-    for item in items:
-        snippet = item.get('snippet', {})
-        statistics = item.get('statistics', {})
-        thumbnails = snippet.get('thumbnails', {})
-
-        data = {
-            'channelTitle': snippet.get('channelTitle', ''),
-            'title': snippet.get('title', ''),
-            'description': snippet.get('description', ''),
-            'default_thumbnail': thumbnails.get('default', {}).get('url', ''),
-            'tags': ','.join(snippet.get('tags', [])),
-            'likeCount': statistics.get('likeCount', ''),
-            'viewCount': statistics.get('viewCount', ''),
-            'commentCount': statistics.get('commentCount', ''),
-        }
-
-        data_list.append(data)
-
-    # Membuat DataFrame
-    df = pd.DataFrame(data_list)
-    # Apply the preprocessing function to the 'title' and 'description' columns
-    df['title'] = df['title'].apply(preprocess_text)
-    df['description'] = df['description'].apply(preprocess_text)
-    # df.to_csv(tmp_file_path, index=False) # debug only
-    return df
+    return s_transform_yt(data=response)
 
 
 def load_gbq(**kwargs):
@@ -103,41 +61,11 @@ def load_gbq(**kwargs):
     df = ti.xcom_pull(task_ids='transform_task')
     DATASET_ID = os.getenv('AIRFLOW_DATASET_ID')
     TABLE_ID = os.getenv('AIRFLOW_TABLE_ID')
-
-    # Mengecek apakah tabel sudah ada
-    table_ref = client.dataset(DATASET_ID).table(TABLE_ID)
-    if not client.get_table(table_ref):
-        # Jika tabel belum ada, membuatnya
-        schema = [
-            bigquery.SchemaField('channelTitle', 'STRING'),
-            bigquery.SchemaField('title', 'STRING'),
-            bigquery.SchemaField('description', 'STRING'),
-            bigquery.SchemaField('default_thumbnail', 'STRING'),
-            bigquery.SchemaField('tags', 'STRING'),
-            bigquery.SchemaField('likeCount', 'STRING'),
-            bigquery.SchemaField('viewCount', 'STRING'),
-            bigquery.SchemaField('commentCount', 'STRING'),
-        ]
-
-        table = bigquery.Table(table_ref, schema=schema)
-        client.create_table(table)
-        # Memuat DataFrame ke tabel dengan menggunakan schema yang telah dibuat
-        # Ganti 'WRITE_TRUNCATE' dengan 'WRITE_APPEND'
-        # jika ingin menambahkan data
-        job_config = bigquery.LoadJobConfig(
-            schema=schema,
-            write_disposition='WRITE_TRUNCATE',
-        )
-        client.load_table_from_dataframe(
-            df, table_ref, job_config=job_config,
-        ).result()
-    else:
-        # Jika tabel sudah ada, memuat DataFrame
-        # ke tabel tanpa menyertakan schema
-        client.load_table_from_dataframe(
-            df,
-            table_ref,
-        ).result()
+    return s_load_gbq(
+        df=df, client=client,
+        DATASET_ID=DATASET_ID,
+        TABLE_ID=TABLE_ID,
+    )
 
 
 extract_task = PythonOperator(
