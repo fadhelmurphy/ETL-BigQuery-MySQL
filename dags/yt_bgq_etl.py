@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from utils import preprocess_text
 
 load_dotenv('dags/.env')
 
@@ -89,6 +90,9 @@ def transform_yt(**kwargs):
 
     # Membuat DataFrame
     df = pd.DataFrame(data_list)
+    # Apply the preprocessing function to the 'title' and 'description' columns
+    df['title'] = df['title'].apply(preprocess_text)
+    df['description'] = df['description'].apply(preprocess_text)
     # df.to_csv(tmp_file_path, index=False) # debug only
     return df
 
