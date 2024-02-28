@@ -2,3 +2,4 @@
 logs/*
 __pycache__
 dags/auth/*
+dags/.env
