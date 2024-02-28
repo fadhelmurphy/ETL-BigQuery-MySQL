@@ -1,4 +1,4 @@
 .env
-logs
+logs/*
 __pycache__
 dags/auth/*
