@@ -42,3 +42,221 @@ webbrowser.Error: could not locate runnable browser
 [2024-02-27T13:48:10.342+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 30 for task extract_task (could not locate runnable browser; 594)
 [2024-02-27T13:48:10.357+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
 [2024-02-27T13:48:10.365+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-02-27T17:00:11.677+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T17:00:11.679+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T17:00:11.679+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 2
+[2024-02-27T17:00:11.684+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): extract_task> on 2024-01-01 11:00:00+00:00
+[2024-02-27T17:00:11.687+0000] {standard_task_runner.py:60} INFO - Started process 369 to run task
+[2024-02-27T17:00:11.689+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'tsunami_etl', 'extract_task', 'scheduled__2024-01-01T11:00:00+00:00', '--job-id', '14', '--raw', '--subdir', 'DAGS_FOLDER/tsunami_etl.py', '--cfg-path', '/tmp/tmp5p1vkljp']
+[2024-02-27T17:00:11.690+0000] {standard_task_runner.py:88} INFO - Job 14: Subtask extract_task
+[2024-02-27T17:00:11.706+0000] {task_command.py:423} INFO - Running <TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [running]> on host 45e004960ef9
+[2024-02-27T17:00:11.729+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='tsunami_etl' AIRFLOW_CTX_TASK_ID='extract_task' AIRFLOW_CTX_EXECUTION_DATE='2024-01-01T11:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-01T11:00:00+00:00'
+[2024-02-27T17:00:11.730+0000] {taskinstance.py:2699} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tsunami_etl.py", line 46, in extract_tsunami
+    GCPCredentials = service_account.Credentials.from_service_account_file(f"../auth/json/{CREDENTIALS_FILE}")
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/oauth2/service_account.py", line 257, in from_service_account_file
+    info, signer = _service_account_info.from_filename(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/auth/_service_account_info.py", line 78, in from_filename
+    with io.open(filename, "r", encoding="utf-8") as json_file:
+FileNotFoundError: [Errno 2] No such file or directory: '../auth/json/None'
+[2024-02-27T17:00:11.732+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=tsunami_etl, task_id=extract_task, execution_date=20240101T110000, start_date=20240227T170011, end_date=20240227T170011
+[2024-02-27T17:00:11.736+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 14 for task extract_task ([Errno 2] No such file or directory: '../auth/json/None'; 369)
+[2024-02-27T17:00:11.743+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-27T17:00:11.751+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-02-27T17:04:28.662+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T17:04:28.665+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T17:04:28.665+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 2
+[2024-02-27T17:04:28.671+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): extract_task> on 2024-01-01 11:00:00+00:00
+[2024-02-27T17:04:28.675+0000] {standard_task_runner.py:60} INFO - Started process 578 to run task
+[2024-02-27T17:04:28.677+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'tsunami_etl', 'extract_task', 'scheduled__2024-01-01T11:00:00+00:00', '--job-id', '29', '--raw', '--subdir', 'DAGS_FOLDER/tsunami_etl.py', '--cfg-path', '/tmp/tmpkjhpu05g']
+[2024-02-27T17:04:28.679+0000] {standard_task_runner.py:88} INFO - Job 29: Subtask extract_task
+[2024-02-27T17:04:28.697+0000] {task_command.py:423} INFO - Running <TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [running]> on host 45e004960ef9
+[2024-02-27T17:04:28.719+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='tsunami_etl' AIRFLOW_CTX_TASK_ID='extract_task' AIRFLOW_CTX_EXECUTION_DATE='2024-01-01T11:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-01T11:00:00+00:00'
+[2024-02-27T17:04:28.720+0000] {taskinstance.py:2699} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tsunami_etl.py", line 42, in extract_tsunami
+    GCPCredentials = service_account.Credentials.from_service_account_file(f"../auth/json/{CREDENTIALS_FILE}")
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/oauth2/service_account.py", line 257, in from_service_account_file
+    info, signer = _service_account_info.from_filename(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/auth/_service_account_info.py", line 78, in from_filename
+    with io.open(filename, "r", encoding="utf-8") as json_file:
+FileNotFoundError: [Errno 2] No such file or directory: '../auth/json/None'
+[2024-02-27T17:04:28.723+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=tsunami_etl, task_id=extract_task, execution_date=20240101T110000, start_date=20240227T170428, end_date=20240227T170428
+[2024-02-27T17:04:28.727+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 29 for task extract_task ([Errno 2] No such file or directory: '../auth/json/None'; 578)
+[2024-02-27T17:04:28.737+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-27T17:04:28.746+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-02-27T17:06:32.995+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T17:06:32.998+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T17:06:32.998+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 2
+[2024-02-27T17:06:33.003+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): extract_task> on 2024-01-01 11:00:00+00:00
+[2024-02-27T17:06:33.006+0000] {standard_task_runner.py:60} INFO - Started process 770 to run task
+[2024-02-27T17:06:33.008+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'tsunami_etl', 'extract_task', 'scheduled__2024-01-01T11:00:00+00:00', '--job-id', '45', '--raw', '--subdir', 'DAGS_FOLDER/tsunami_etl.py', '--cfg-path', '/tmp/tmp6ka1t4wq']
+[2024-02-27T17:06:33.009+0000] {standard_task_runner.py:88} INFO - Job 45: Subtask extract_task
+[2024-02-27T17:06:33.026+0000] {task_command.py:423} INFO - Running <TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [running]> on host 45e004960ef9
+[2024-02-27T17:06:33.048+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='tsunami_etl' AIRFLOW_CTX_TASK_ID='extract_task' AIRFLOW_CTX_EXECUTION_DATE='2024-01-01T11:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-01T11:00:00+00:00'
+[2024-02-27T17:06:33.049+0000] {taskinstance.py:2699} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tsunami_etl.py", line 42, in extract_tsunami
+    GCPCredentials = service_account.Credentials.from_service_account_file(f"../auth/json/credentials.json")
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/oauth2/service_account.py", line 257, in from_service_account_file
+    info, signer = _service_account_info.from_filename(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/auth/_service_account_info.py", line 78, in from_filename
+    with io.open(filename, "r", encoding="utf-8") as json_file:
+FileNotFoundError: [Errno 2] No such file or directory: '../auth/json/credentials.json'
+[2024-02-27T17:06:33.051+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=tsunami_etl, task_id=extract_task, execution_date=20240101T110000, start_date=20240227T170632, end_date=20240227T170633
+[2024-02-27T17:06:33.055+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 45 for task extract_task ([Errno 2] No such file or directory: '../auth/json/credentials.json'; 770)
+[2024-02-27T17:06:33.060+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-27T17:06:33.067+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-02-27T17:10:01.080+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T17:10:01.084+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T17:10:01.084+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 2
+[2024-02-27T17:10:01.105+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): extract_task> on 2024-01-01 11:00:00+00:00
+[2024-02-27T17:10:01.184+0000] {standard_task_runner.py:60} INFO - Started process 969 to run task
+[2024-02-27T17:10:01.190+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'tsunami_etl', 'extract_task', 'scheduled__2024-01-01T11:00:00+00:00', '--job-id', '13', '--raw', '--subdir', 'DAGS_FOLDER/tsunami_etl.py', '--cfg-path', '/tmp/tmp1nh16xal']
+[2024-02-27T17:10:01.199+0000] {standard_task_runner.py:88} INFO - Job 13: Subtask extract_task
+[2024-02-27T17:10:01.248+0000] {task_command.py:423} INFO - Running <TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [running]> on host 45e004960ef9
+[2024-02-27T17:10:01.318+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='tsunami_etl' AIRFLOW_CTX_TASK_ID='extract_task' AIRFLOW_CTX_EXECUTION_DATE='2024-01-01T11:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-01T11:00:00+00:00'
+[2024-02-27T17:10:01.319+0000] {taskinstance.py:2699} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tsunami_etl.py", line 41, in extract_tsunami
+    GCPCredentials = service_account.Credentials.from_service_account_file("credentials.json")
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/oauth2/service_account.py", line 257, in from_service_account_file
+    info, signer = _service_account_info.from_filename(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/auth/_service_account_info.py", line 78, in from_filename
+    with io.open(filename, "r", encoding="utf-8") as json_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'credentials.json'
+[2024-02-27T17:10:01.323+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=tsunami_etl, task_id=extract_task, execution_date=20240101T110000, start_date=20240227T171001, end_date=20240227T171001
+[2024-02-27T17:10:01.328+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 13 for task extract_task ([Errno 2] No such file or directory: 'credentials.json'; 969)
+[2024-02-27T17:10:01.368+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-27T17:10:01.379+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-02-27T18:09:57.785+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T18:09:57.787+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T18:09:57.787+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 2
+[2024-02-27T18:09:57.792+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): extract_task> on 2024-01-01 11:00:00+00:00
+[2024-02-27T18:09:57.796+0000] {standard_task_runner.py:60} INFO - Started process 467 to run task
+[2024-02-27T18:09:57.798+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'tsunami_etl', 'extract_task', 'scheduled__2024-01-01T11:00:00+00:00', '--job-id', '35', '--raw', '--subdir', 'DAGS_FOLDER/tsunami_etl.py', '--cfg-path', '/tmp/tmp51h3wscz']
+[2024-02-27T18:09:57.800+0000] {standard_task_runner.py:88} INFO - Job 35: Subtask extract_task
+[2024-02-27T18:09:57.821+0000] {task_command.py:423} INFO - Running <TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [running]> on host cf5ca63d0f74
+[2024-02-27T18:09:57.854+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='tsunami_etl' AIRFLOW_CTX_TASK_ID='extract_task' AIRFLOW_CTX_EXECUTION_DATE='2024-01-01T11:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-01T11:00:00+00:00'
+[2024-02-27T18:09:57.854+0000] {taskinstance.py:2699} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tsunami_etl.py", line 42, in extract_tsunami
+    GCPCredentials = service_account.Credentials.from_service_account_file(credentials_path)
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/oauth2/service_account.py", line 257, in from_service_account_file
+    info, signer = _service_account_info.from_filename(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/auth/_service_account_info.py", line 78, in from_filename
+    with io.open(filename, "r", encoding="utf-8") as json_file:
+FileNotFoundError: [Errno 2] No such file or directory: './credentials.json'
+[2024-02-27T18:09:57.857+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=tsunami_etl, task_id=extract_task, execution_date=20240101T110000, start_date=20240227T180957, end_date=20240227T180957
+[2024-02-27T18:09:57.861+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 35 for task extract_task ([Errno 2] No such file or directory: './credentials.json'; 467)
+[2024-02-27T18:09:57.892+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-27T18:09:57.900+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-02-27T18:19:59.584+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T18:19:59.586+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T18:19:59.587+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 2
+[2024-02-27T18:19:59.592+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): extract_task> on 2024-01-01 11:00:00+00:00
+[2024-02-27T18:19:59.597+0000] {standard_task_runner.py:60} INFO - Started process 465 to run task
+[2024-02-27T18:19:59.601+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'tsunami_etl', 'extract_task', 'scheduled__2024-01-01T11:00:00+00:00', '--job-id', '35', '--raw', '--subdir', 'DAGS_FOLDER/tsunami_etl.py', '--cfg-path', '/tmp/tmphlucgh0q']
+[2024-02-27T18:19:59.602+0000] {standard_task_runner.py:88} INFO - Job 35: Subtask extract_task
+[2024-02-27T18:19:59.625+0000] {task_command.py:423} INFO - Running <TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [running]> on host 38ece35a2749
+[2024-02-27T18:19:59.651+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='tsunami_etl' AIRFLOW_CTX_TASK_ID='extract_task' AIRFLOW_CTX_EXECUTION_DATE='2024-01-01T11:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-01T11:00:00+00:00'
+[2024-02-27T18:19:59.652+0000] {taskinstance.py:2699} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tsunami_etl.py", line 44, in extract_tsunami
+    GCPCredentials = service_account.Credentials.from_service_account_info(json.loads(credentials_path))
+  File "/usr/local/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/local/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2024-02-27T18:19:59.655+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=tsunami_etl, task_id=extract_task, execution_date=20240101T110000, start_date=20240227T181959, end_date=20240227T181959
+[2024-02-27T18:19:59.658+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 35 for task extract_task (Expecting value: line 1 column 1 (char 0); 465)
+[2024-02-27T18:19:59.705+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-27T18:19:59.712+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-02-27T18:39:56.885+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T18:39:56.888+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T18:39:56.888+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 2
+[2024-02-27T18:39:56.894+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): extract_task> on 2024-01-01 11:00:00+00:00
+[2024-02-27T18:39:56.898+0000] {standard_task_runner.py:60} INFO - Started process 1172 to run task
+[2024-02-27T18:39:56.901+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'tsunami_etl', 'extract_task', 'scheduled__2024-01-01T11:00:00+00:00', '--job-id', '35', '--raw', '--subdir', 'DAGS_FOLDER/tsunami_etl.py', '--cfg-path', '/tmp/tmpw7e0njag']
+[2024-02-27T18:39:56.902+0000] {standard_task_runner.py:88} INFO - Job 35: Subtask extract_task
+[2024-02-27T18:39:56.933+0000] {task_command.py:423} INFO - Running <TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [running]> on host f8b0167ca209
+[2024-02-27T18:39:56.961+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='tsunami_etl' AIRFLOW_CTX_TASK_ID='extract_task' AIRFLOW_CTX_EXECUTION_DATE='2024-01-01T11:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-01T11:00:00+00:00'
+[2024-02-27T18:39:56.961+0000] {taskinstance.py:2699} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tsunami_etl.py", line 44, in extract_tsunami
+    with open(credentials_path, "r") as file:
+FileNotFoundError: [Errno 2] No such file or directory: './credentials.json'
+[2024-02-27T18:39:56.963+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=tsunami_etl, task_id=extract_task, execution_date=20240101T110000, start_date=20240227T183956, end_date=20240227T183956
+[2024-02-27T18:39:56.968+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 35 for task extract_task ([Errno 2] No such file or directory: './credentials.json'; 1172)
+[2024-02-27T18:39:56.994+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-27T18:39:56.999+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-02-27T18:47:15.510+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T18:47:15.513+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [queued]>
+[2024-02-27T18:47:15.513+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 2
+[2024-02-27T18:47:15.519+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): extract_task> on 2024-01-01 11:00:00+00:00
+[2024-02-27T18:47:15.523+0000] {standard_task_runner.py:60} INFO - Started process 475 to run task
+[2024-02-27T18:47:15.525+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'tsunami_etl', 'extract_task', 'scheduled__2024-01-01T11:00:00+00:00', '--job-id', '35', '--raw', '--subdir', 'DAGS_FOLDER/tsunami_etl.py', '--cfg-path', '/tmp/tmp8u03olyr']
+[2024-02-27T18:47:15.527+0000] {standard_task_runner.py:88} INFO - Job 35: Subtask extract_task
+[2024-02-27T18:47:15.544+0000] {task_command.py:423} INFO - Running <TaskInstance: tsunami_etl.extract_task scheduled__2024-01-01T11:00:00+00:00 [running]> on host c200f435f34d
+[2024-02-27T18:47:15.569+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='tsunami_etl' AIRFLOW_CTX_TASK_ID='extract_task' AIRFLOW_CTX_EXECUTION_DATE='2024-01-01T11:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-01T11:00:00+00:00'
+[2024-02-27T18:47:15.570+0000] {taskinstance.py:2699} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/tsunami_etl.py", line 44, in extract_tsunami
+    with open(credentials_path, "r") as file:
+FileNotFoundError: [Errno 2] No such file or directory: './credentials.json'
+[2024-02-27T18:47:15.573+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=tsunami_etl, task_id=extract_task, execution_date=20240101T110000, start_date=20240227T184715, end_date=20240227T184715
+[2024-02-27T18:47:15.576+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 35 for task extract_task ([Errno 2] No such file or directory: './credentials.json'; 475)
+[2024-02-27T18:47:15.581+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-27T18:47:15.586+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check

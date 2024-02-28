@@ -9,8 +9,10 @@ x-airflow-common: &airflow-common
     _AIRFLOW_WWW_USER_CREATE: "true"
     _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_USER_USERNAME} 
     _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_USER_PASSWORD}
-    AIRFLOW__CELERY__RESULT_BACKEND: mysql+mysqlconnector://${MYSQL_ROOT_USER}:${MYSQL_ROOT_PASSWORD}@mysql:3306/airflow
-    AIRFLOW__WEBSERVER__BASE_URL: http://nginx/airflow-web
+    ENGINE_CONNECT: mysql+mysqlconnector://${MYSQL_ROOT_USER}:${MYSQL_ROOT_PASSWORD}@mysql:3306/etl_db
+    AIRFLOW_MYSQL_USER: ${MYSQL_ROOT_USER} 
+    AIRFLOW_MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+    AIRFLOW__WEBSERVER__BASE_URL: http://nginx/airflow
     # AIRFLOW__CORE__EXECUTOR: LocalExecutor
 
 services:
@@ -50,7 +52,7 @@ services:
     environment:
       - PMA_HOST=mysql
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} 
-      - PMA_ABSOLUTE_URI=http://nginx/mysql-admin
+      - PMA_ABSOLUTE_URI=http://nginx/pma
     depends_on:
       - mysql
 
