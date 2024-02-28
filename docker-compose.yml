@@ -7,11 +7,14 @@ x-airflow-common: &airflow-common
     LOAD_EX: n
     _AIRFLOW_DB_MIGRATE: "true"
     _AIRFLOW_WWW_USER_CREATE: "true"
-    _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_USER_USERNAME} 
+    _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_USER_USERNAME}
     _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_USER_PASSWORD}
     ENGINE_CONNECT: mysql+mysqlconnector://${MYSQL_ROOT_USER}:${MYSQL_ROOT_PASSWORD}@mysql:3306/etl_db
-    AIRFLOW_MYSQL_USER: ${MYSQL_ROOT_USER} 
-    AIRFLOW_MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+    AIRFLOW_MYSQL_USER: ${MYSQL_ROOT_USER}
+    AIRFLOW_MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    AIRFLOW_PROJECT_ID: ${GCP_PROJECT_ID}
+    AIRFLOW_DATASET_ID: ${GCP_DATASET_ID}
+    AIRFLOW_TABLE_ID: ${GCP_TABLE_ID}
     AIRFLOW__WEBSERVER__BASE_URL: http://nginx/airflow
     # AIRFLOW__CORE__EXECUTOR: LocalExecutor
 
@@ -37,9 +40,9 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      - MYSQL_USER=${MYSQL_USER} 
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD} 
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} 
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - mysql-data:/var/lib/mysql
       - ./sql/mysql:/docker-entrypoint-initdb.d
@@ -51,7 +54,7 @@ services:
     restart: always
     environment:
       - PMA_HOST=mysql
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} 
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - PMA_ABSOLUTE_URI=http://nginx/pma
     depends_on:
       - mysql
