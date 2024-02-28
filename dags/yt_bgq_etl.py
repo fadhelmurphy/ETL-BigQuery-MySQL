@@ -44,7 +44,7 @@ dag = DAG(
 )
 
 
-def extract_tsunami():
+def extract_yt():
     youtube = build(
         'youtube', 'v3',
         credentials=credentials,
@@ -142,7 +142,7 @@ def load_gbq(**kwargs):
 
 extract_task = PythonOperator(
     task_id='extract_task',
-    python_callable=extract_tsunami,
+    python_callable=extract_yt,
     dag=dag,
 )
 
