@@ -1,4 +1,4 @@
-![](assets/20240229_112916_ETL.png)
+![](assets/20240229_133320_ETL.png)
 
 # ETL Youtube Trend to BigQuery/MySQL
 
@@ -57,4 +57,4 @@ if you want to stop run this project, you can type this command down below.
 
 ## Looker Studio
 
-[Bar Chart]()
+[Bar Chart](https://lookerstudio.google.com/reporting/7c863c7b-678f-42e3-850c-0d58e628a9c8)

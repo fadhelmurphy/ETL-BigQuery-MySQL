@@ -36,11 +36,10 @@ tmp_file_path = f'/opt/airflow/dags/{tmp_filename}'
 
 dag = DAG(
     'yt_trend_bigquery_etl',
-    schedule_interval=None,  # on debug
-    start_date=datetime(2024, 1, 1),  # on debug
+    start_date=datetime.now(),
     description='ETL pipeline for Youtube Trending data to BigQuery',
-    # schedule_interval='@daily',
-    # Set the schedule to run every day # on debug
+    schedule_interval='@daily',
+    # Set the schedule to run every day
 )
 
 
