@@ -28,9 +28,14 @@ MYSQL_ROOT_PASSWORD=root
 GCP_PROJECT_ID=YOUR_GCP_PROJECT_ID
 GCP_DATASET_ID=YOUR_BIGQUERY_DATASET_ID
 GCP_TABLE_ID=YOUR_BIGQUERY_TABLE_ID
-CREDENTIALS_FILE=credentials.json
+CREDENTIALS_FILE=credentials.json # your gcp credentials
 
 ```
+
+**reference**:
+
+* [Create credentials.json](https://www.arengu.com/tutorials/how-to-create-a-google-bigquery-service-account-to-use-the-rest-api)
+* [Create &amp; Get DATASET ID](https://bipp.io/sql-tutorial/big-query/create-a-database/)
 
 ## Run Project
 
