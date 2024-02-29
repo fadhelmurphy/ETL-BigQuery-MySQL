@@ -12,7 +12,7 @@ git clone git@github.com:fadhelmurphy/ETL-BigQuery-MySQL.git
 cd ETL-BigQuery-MySQL
 ```
 
-## Setup *.env* files
+## Setup *.env* file
 
 You must create .env file on root project
 
@@ -43,11 +43,11 @@ after you created the files, you can run this project through Docker by this com
 
 `docker compose up -d`
 
-### Open Airflow to browser
+### Open Airflow on your browser
 
 `localhost/airflow`
 
-### Open PhpMyAdmin to browser
+### Open PhpMyAdmin on your browser
 
 `localhost/pma`
 
