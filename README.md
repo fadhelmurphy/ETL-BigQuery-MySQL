@@ -43,6 +43,14 @@ after you created the files, you can run this project through Docker by this com
 
 `docker compose up -d`
 
+### Open Airflow to browser
+
+`localhost/airflow`
+
+### Open PhpMyAdmin to browser
+
+`localhost/pma`
+
 if you want to stop run this project, you can type this command down below.
 
 `docker compose down`
