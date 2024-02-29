@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import sys
-
 import pandas as pd
 from google.cloud import bigquery
 from googleapiclient.discovery import build
@@ -9,7 +7,6 @@ from mysql.connector import connect
 from mysql.connector import Error
 from sqlalchemy import create_engine
 from utils import preprocess_text
-sys.path.append('...')
 
 
 def s_extract_yt(credentials):
