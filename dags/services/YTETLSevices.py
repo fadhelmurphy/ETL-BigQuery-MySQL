@@ -97,8 +97,8 @@ def s_load_gbq(df, client, DATASET_ID, TABLE_ID):
 
 
 def s_load_mysql(df, MYSQL_ROOT_USER, MYSQL_ROOT_PASSWORD, database, table):
-    ENGINE_CONNECT = f"""mysql+mysqlconnector://{MYSQL_ROOT_USER}:
-    {MYSQL_ROOT_PASSWORD}@mysql:3306/{database}"""
+    ENGINE_CONNECT = f'mysql+mysqlconnector://{MYSQL_ROOT_USER}\
+        :{MYSQL_ROOT_PASSWORD}@mysql:3306/{database}'
 
     MYSQL_HOST = 'mysql'
 
