@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from services.YTETLSevices import s_extract_yt
-from services.YTETLSevices import s_load_gbq
+from services.YTETLSevices import s_load_mysql
 from services.YTETLSevices import s_transform_yt
 
 load_dotenv()
@@ -35,10 +35,10 @@ tmp_filename = 'tmp_file.csv'
 tmp_file_path = f'/opt/airflow/dags/{tmp_filename}'
 
 dag = DAG(
-    'yt_trend_bigquery_etl',
+    'yt_trend_mysql_etl',
     schedule_interval=None,  # on debug
     start_date=datetime(2024, 1, 1),  # on debug
-    description='ETL pipeline for Youtube Trending data to BigQuery',
+    description='ETL pipeline for Youtube Trending data to MYSQL',
     # schedule_interval='@daily',
     # Set the schedule to run every day # on debug
 )
@@ -55,16 +55,19 @@ def transform_yt(**kwargs):
     return s_transform_yt(data=response)
 
 
-def load_gbq(**kwargs):
-
+def load_mysql(**kwargs):
+    # Load the transformed data into MySQL
     ti = kwargs['ti']
     df = ti.xcom_pull(task_ids='transform_task')
-    DATASET_ID = os.getenv('AIRFLOW_DATASET_ID')
-    TABLE_ID = os.getenv('AIRFLOW_TABLE_ID')
-    return s_load_gbq(
-        df=df, client=client,
-        DATASET_ID=DATASET_ID,
-        TABLE_ID=TABLE_ID,
+
+    MYSQL_ROOT_USER = os.getenv('AIRFLOW_MYSQL_USER')
+    MYSQL_ROOT_PASSWORD = os.getenv('AIRFLOW_MYSQL_PASSWORD')
+
+    return s_load_mysql(
+        df=df, MYSQL_ROOT_USER=MYSQL_ROOT_USER,
+        MYSQL_ROOT_PASSWORD=MYSQL_ROOT_PASSWORD,
+        database='yt_etl_db',
+        table='youtube_trend',
     )
 
 
@@ -83,7 +86,7 @@ transform_task = PythonOperator(
 
 load_task = PythonOperator(
     task_id='load_task',
-    python_callable=load_gbq,
+    python_callable=load_mysql,
     provide_context=True,
     dag=dag,
 )

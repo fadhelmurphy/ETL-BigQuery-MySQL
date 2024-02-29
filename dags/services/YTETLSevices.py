@@ -5,6 +5,9 @@ import sys
 import pandas as pd
 from google.cloud import bigquery
 from googleapiclient.discovery import build
+from mysql.connector import connect
+from mysql.connector import Error
+from sqlalchemy import create_engine
 from utils import preprocess_text
 sys.path.append('...')
 
@@ -94,3 +97,35 @@ def s_load_gbq(df, client, DATASET_ID, TABLE_ID):
             df,
             table_ref,
         ).result()
+
+
+def s_load_mysql(df, MYSQL_ROOT_USER, MYSQL_ROOT_PASSWORD, database, table):
+    ENGINE_CONNECT = f"""mysql+mysqlconnector://{MYSQL_ROOT_USER}:
+    {MYSQL_ROOT_PASSWORD}@mysql:3306/{database}"""
+
+    MYSQL_HOST = 'mysql'
+
+    try:
+        # Connect to MySQL server
+        with connect(
+            host=MYSQL_HOST,
+            user=MYSQL_ROOT_USER,
+            password=MYSQL_ROOT_PASSWORD,
+        ) as connection:
+            # Create a cursor object
+            cursor = connection.cursor()
+
+            # Create the database if it does not exist
+            cursor.execute(f'CREATE DATABASE IF NOT EXISTS {database}')
+
+            # Commit the changes
+            connection.commit()
+
+    except Error as e:
+        print(f'Error creating database: {e}')
+        return
+
+    # Now connect to the specific database 'etl_db'
+    engine = create_engine(ENGINE_CONNECT)
+
+    return df.to_sql(table, con=engine, if_exists='append')
