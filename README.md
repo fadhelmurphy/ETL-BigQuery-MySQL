@@ -54,3 +54,7 @@ after you created the files, you can run this project through Docker by this com
 if you want to stop run this project, you can type this command down below.
 
 `docker compose down`
+
+## Looker Studio
+
+[Bar Chart]()

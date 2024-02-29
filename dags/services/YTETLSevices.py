@@ -55,6 +55,10 @@ def s_transform_yt(data):
     # Apply the preprocessing function to the 'title' and 'description' columns
     df['title'] = df['title'].apply(preprocess_text)
     df['description'] = df['description'].apply(preprocess_text)
+    # Convert count fields to integer
+    df['likeCount'] = df['likeCount'].astype(int)
+    df['viewCount'] = df['viewCount'].astype(int)
+    df['commentCount'] = df['commentCount'].astype(int)
     # df.to_csv(tmp_file_path, index=False) # debug only
     return df
 
@@ -70,9 +74,9 @@ def s_load_gbq(df, client, DATASET_ID, TABLE_ID):
             bigquery.SchemaField('description', 'STRING'),
             bigquery.SchemaField('default_thumbnail', 'STRING'),
             bigquery.SchemaField('tags', 'STRING'),
-            bigquery.SchemaField('likeCount', 'STRING'),
-            bigquery.SchemaField('viewCount', 'STRING'),
-            bigquery.SchemaField('commentCount', 'STRING'),
+            bigquery.SchemaField('likeCount', 'INTEGER'),
+            bigquery.SchemaField('viewCount', 'INTEGER'),
+            bigquery.SchemaField('commentCount', 'INTEGER'),
         ]
 
         table = bigquery.Table(table_ref, schema=schema)
